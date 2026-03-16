@@ -63,7 +63,7 @@ export async function GET(req: Request) {
   res = await checkStock("GOOGL", 0, 269, "Cycle Trading");
   res && arrStocks.push(res);
 
-  res = await checkStock("WDC", 200, 0, "Cycle Trading");
+  res = await checkStock("WDC", 296, 0, "Cycle Trading");
   res && arrStocks.push(res);
 
   res = await checkStock("HON", 300, 0, "Cycle Trading");
@@ -78,7 +78,7 @@ export async function GET(req: Request) {
   res = await checkStock("OPEN", 5.21, 0, "Cycle Trading");
   res && arrStocks.push(res);
 
-  res = await checkStock("SEDG", 35, 0, "Cycle Trading");
+  res = await checkStock("SEDG", 49, 29, "Cycle Trading");
   res && arrStocks.push(res);
 
   res = await checkStock("OKLO", 63, 0, "Cycle Trading");
@@ -102,7 +102,7 @@ export async function GET(req: Request) {
   res = await checkStock("IREN", 0, 36);
   res && arrStocks.push(res);
 
-  res = await checkStock("HIMS", 13, 0, "darkPool");
+  res = await checkStock("HIMS", 24, 0, "darkPool");
   res && arrStocks.push(res);
 
   res = await checkStock("ONDS", 0, 9.8, "darkPool");
