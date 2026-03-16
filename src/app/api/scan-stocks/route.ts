@@ -4,6 +4,7 @@ interface StockResponse {
   symbol: string;
   price: number;
   change: number;
+  percentage: number;
   description: string;
 }
 
@@ -160,6 +161,7 @@ async function checkStock(
         price: stock.price,
         change: stock.change,
         description: description,
+        percentage: Number(stock.changePercent.toFixed(2)),
       };
     }
   }
