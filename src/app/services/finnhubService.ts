@@ -2,8 +2,20 @@ import redis from "../lib/redis";
 const API_KEY =
   process.env.FINNHUB_API_KEY || "d431ai1r01qvk0j9nnigd431ai1r01qvk0j9nnj0";
 
+interface StockData {
+  symbol: string;
+  price: number;
+  change: number;
+  changePercent: number;
+  high: number;
+  low: number;
+  open: number;
+  prevClose: number;
+  timestamp: number;
+}
+
 export async function getFinnhubStock(symbol: string) {
-  const redisKey = `finnhub:quote:${symbol}`;
+  const redisKey = `finnhub:${symbol}`;
   const cached = await redis.get(redisKey);
 
   if (cached) {
@@ -20,7 +32,18 @@ export async function getFinnhubStock(symbol: string) {
   }
 
   const data = await res.json();
+  const stock: StockData = {
+    symbol,
+    price: data.c,
+    change: data.d,
+    changePercent: data.dp,
+    high: data.h,
+    low: data.l,
+    open: data.o,
+    prevClose: data.pc,
+    timestamp: data.t,
+  };
 
-  await redis.set(redisKey, JSON.stringify(data), "EX", 60);
-  return data;
+  await redis.set(redisKey, JSON.stringify(stock), "EX", 60);
+  return stock;
 }
