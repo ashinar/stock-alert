@@ -39,16 +39,16 @@ export async function GET(req: Request) {
   res = await checkStock("GS", 840, 0, "Cycle Trading");
   res && arrStocks.push(res);
 
-  res = await checkStock("VLO", 207, 0, "Cycle Trading");
+  res = await checkStock("VLO", 0, 208, "Cycle Trading");
   res && arrStocks.push(res);
 
-  res = await checkStock("LRCX", 57, 0, "Cycle Trading");
+  res = await checkStock("LRCX", 221, 191, "Cycle Trading");
   res && arrStocks.push(res);
 
   res = await checkStock("AMZN", 223, 0, "Cycle Trading");
   res && arrStocks.push(res);
 
-  res = await checkStock("RKLB", 63, 0, "Cycle Trading");
+  res = await checkStock("RKLB", 74, 0, "Cycle Trading");
   res && arrStocks.push(res);
 
   res = await checkStock("NFLX", 100, 0, "Cycle Trading");
@@ -60,7 +60,7 @@ export async function GET(req: Request) {
   res = await checkStock("PNC", 216, 0, "Cycle Trading");
   res && arrStocks.push(res);
 
-  res = await checkStock("GOOGL", 269, 0, "Cycle Trading");
+  res = await checkStock("GOOGL", 0, 269, "Cycle Trading");
   res && arrStocks.push(res);
 
   res = await checkStock("WDC", 200, 0, "Cycle Trading");
@@ -84,7 +84,7 @@ export async function GET(req: Request) {
   res = await checkStock("OKLO", 63, 0, "Cycle Trading");
   res && arrStocks.push(res);
 
-  res = await checkStock("MSFT", 381, 0, "Cycle Trading");
+  res = await checkStock("MSFT", 413, 351, "Cycle Trading");
   res && arrStocks.push(res);
 
   res = await checkStock("AMAT", 2870, 0, "Cycle Trading");
@@ -107,19 +107,24 @@ export async function GET(req: Request) {
 
   res = await checkStock("ONDS", 0, 9.8, "darkPool");
   res && arrStocks.push(res);
-  res = await checkStock("IONQ", 0, 35, "darkPool");
+  res = await checkStock("IONQ", 35, 0, "darkPool");
   res && arrStocks.push(res);
+
   res = await checkStock("OSS", 9.5, 0, "darkPool");
   res && arrStocks.push(res);
+
   res = await checkStock("SNDK", 538, 0, "darkPool");
   res && arrStocks.push(res);
 
   res = await checkStock("OSCR", 23, 0, "Amir");
   res && arrStocks.push(res);
+
   res = await checkStock("AA", 68, 0, "Amir");
   res && arrStocks.push(res);
+
   res = await checkStock("AAOI", 115, 0, "Amir");
   res && arrStocks.push(res);
+
   res = await checkStock("ADI", 313, 0, "Amir");
   res && arrStocks.push(res);
 
