@@ -10,10 +10,10 @@ interface StockResponse {
 export async function GET(req: Request) {
   let arrStocks: StockResponse[] = [];
 
-  let res = await checkStock("SOFI", 18, 16.8, "Cycle Trading");
-  res && arrStocks.push(res);
+  // res = await checkStock("LMND", 56, 48, "Cycle Trading");
+  // res && arrStocks.push(res);
 
-  res = await checkStock("LMND", 56, 48, "Cycle Trading");
+  let res = await checkStock("SOFI", 18, 16.8, "Cycle Trading");
   res && arrStocks.push(res);
 
   res = await checkStock("AMD", 199, 188, "Cycle Trading");
@@ -21,6 +21,50 @@ export async function GET(req: Request) {
 
   res = await checkStock("PLTR", 161, 126, "Cycle Trading");
   res && arrStocks.push(res);
+
+  res = await checkStock("HOOD", 82, 67, "Cycle Trading");
+  res && arrStocks.push(res);
+
+  //cup and handle
+
+  res = await checkStock("MRNA", 59, 0, "cup and handle");
+  res && arrStocks.push(res);
+
+  res = await checkStock("KTOS", 133, 0, "cup and handle");
+  res && arrStocks.push(res);
+  if (!res) {
+    res = await checkStock("KTOS", 91.8, 0, "");
+  }
+
+  checkStock("GS", 840, 0, "Cycle Trading");
+  checkStock("VLO", 207, 0, "Cycle Trading");
+
+  checkStock("LRCX", 57, 0, "Cycle Trading");
+  checkStock("AMZN", 223, 0, "Cycle Trading");
+
+  checkStock("RKLB", 63, 0, "Cycle Trading");
+  checkStock("NFLX", 100, 0, "Cycle Trading");
+
+  checkStock("PLTR", 161, 130, "Cycle Trading");
+
+  checkStock("PNC", 216, 0, "Cycle Trading");
+  checkStock("GOOGL", 269, 0, "Cycle Trading");
+  checkStock("WDC", 200, 0, "Cycle Trading");
+
+  checkStock("HON", 300, 0, "Cycle Trading");
+  checkStock("MP", 66, 0, "Cycle Trading");
+
+  checkStock("UUUU", 27, 12, "Cycle Trading");
+
+  checkStock("OPEN", 5.21, 0, "Cycle Trading");
+  checkStock("SEDG", 35, 0, "Cycle Trading");
+  checkStock("OKLO", 63, 0, "Cycle Trading");
+
+  checkStock("MSFT", 381, 0, "Cycle Trading");
+  checkStock("AMAT", 2870, 0, "Cycle Trading");
+  checkStock("ANET", 115, 0, "Cycle Trading");
+
+  checkStock("TSM", 379, 312, "Cycle Trading");
 
   return new Response(JSON.stringify({ stocks: arrStocks }), {
     headers: { "Content-Type": "application/json" },
