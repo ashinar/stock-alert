@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "./stockIdea.module.css";
+import Image from "next/image";
 
 type Stock = {
   symbol: string;
@@ -13,13 +14,17 @@ export default function StockIdea() {
   const [stocks, setStocks] = useState<Stock[]>([]);
 
   useEffect(() => {
-    const loadStocks = async () => {
-      const res = await fetch("/api/scan-stocks");
+    const loadStocks = async (page: number) => {
+      const res = await fetch("/api/scan-stocks?page=" + page);
       const data = await res.json();
-      setStocks(data.stocks);
+
+      if (data) {
+        setStocks((prev) => [...prev, ...data.stocks]);
+        data.loadMore && loadStocks(page + 1);
+      }
     };
 
-    loadStocks();
+    loadStocks(1);
   }, []);
 
   return (
@@ -53,6 +58,7 @@ export default function StockIdea() {
         {stocks &&
           stocks.map((stock) => (
             <div
+              className={styles.isBomba}
               key={stock.symbol}
               style={{
                 background: "#fff",
@@ -102,6 +108,7 @@ export default function StockIdea() {
                       fontSize: "0.9rem",
                     }}
                   >
+                    {stock.isStar && "🌟"}
                     {stock.percentage}%
                   </span>
                 )}
