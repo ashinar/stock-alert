@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import styles from "./stockIdea.module.css";
-import Image from "next/image";
-import Link from "next/link";
+import { useEffect, useState, useRef } from "react";
+import styles from "../constants/stockIdea.module.css";
 
 type Stock = {
   symbol: string;
@@ -11,21 +9,27 @@ type Stock = {
   percentage: number;
 };
 
-export default function StockIdea() {
+export default function DarkPool() {
+  const didLoad = useRef(false);
   const [stocks, setStocks] = useState<Stock[]>([]);
 
   useEffect(() => {
-    const loadStocks = async (page: number) => {
-      const res = await fetch("/api/scan-stocks?page=" + page);
+    if (didLoad.current) {
+      return;
+    }
+
+    didLoad.current = true;
+
+    const loadStocks = async () => {
+      console.log("Loading stocks...");
+
+      const res = await fetch("/api/dark-pool");
       const data = await res.json();
 
-      if (data) {
-        setStocks((prev) => [...prev, ...data.stocks]);
-        data.loadMore && loadStocks(page + 1);
-      }
+      data && setStocks(data.stocks);
     };
 
-    loadStocks(1);
+    loadStocks();
   }, []);
 
   return (
@@ -37,7 +41,6 @@ export default function StockIdea() {
         fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       }}
     >
-      <Link href={"/dark-pool"}>Dark Pool</Link>
       <h1
         style={{
           textAlign: "center",
