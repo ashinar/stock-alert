@@ -5,25 +5,19 @@ export async function GET(req: Request) {
   let arrStocks: StockResponse[] = [];
 
   //14-4-26
-  let res = await checkStock("KTOS", 74.5, 0, "", false);
+  let res = await checkStock("SEDG", 41.8, 0, "cyclestrading", false);
   res && arrStocks.push(res);
 
-  res = await checkStock("SEDG", 44, 0, "", false);
+  res = await checkStock("ENLT", 0, 71, "cyclestrading", false);
   res && arrStocks.push(res);
 
-  res = await checkStock("PLTR", 135.7, 126, "", false);
-  res && arrStocks.push(res);
-
-  res = await checkStock("ENLT", 0, 70, "", false);
-  res && arrStocks.push(res);
-
-  res = await checkStock("MU", 471, 405, "", false);
+  res = await checkStock("MU", 471, 0, "cyclestrading ", false);
   res && arrStocks.push(res);
 
   let stock = await getFinnhubStock("COHR");
   if (
     stock &&
-    (stock.price > 313.42 || (stock.price > 300.37 && stock.price < 303))
+    (stock.price > 322 || (stock.price > 300.37 && stock.price < 303))
   ) {
     arrStocks.push(getStockResponse(stock, "", false));
   }
