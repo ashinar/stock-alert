@@ -26,26 +26,41 @@ export async function GET(req: Request) {
   //AXTI
 
   if (page == "1") {
-    let res = await checkStock(
-      "BKSY",
-      31,
-      27,
-      "MichaStocks - לוויני בטחון",
-      true,
-    );
+    let semiconductors = await getFinnhubStock("SOXX");
+
+    if (semiconductors) {
+      if (semiconductors.change > 0) {
+        let res = await checkStock("NVDA", 190, 0, ""); //4.26
+        res && arrStocks.push(res);
+      }
+    }
+
+    let res = await checkStock("HOOD", 71, 0, "Cycle Trading"); //4.26
+    res && arrStocks.push(res);
+
+    res = await checkStock("GE", 312, 295, "Cycle Trading"); //4.26
+    res && arrStocks.push(res);
+
+    res = await checkStock("BE", 181, 0, "DarkPool"); //4.26
+    res && arrStocks.push(res);
+
+    res = await checkStock("POET", 7.36, 0, "DarkPool"); //4.26
+    res && arrStocks.push(res);
+
+    res = await checkStock("CRWV", 114.55, 96, "DarkPool"); //4.26
+    res && arrStocks.push(res);
+
+    res = await checkStock("MCK", 879, 0, "Cycle Trading"); //4.26
     res && arrStocks.push(res);
 
     //cup and handle
-    res = await checkStock("MRNA", 59, 0, "cup and handle");
+    res = await checkStock("MRNA", 51, 0, "cup and handle");
+    res && arrStocks.push(res);
+
+    res = await checkStock("GOOGL", 328, 311, "TrendSpider");
     res && arrStocks.push(res);
 
     res = await checkStock("KTOS", 133, 0, "cup and handle");
-    res && arrStocks.push(res);
-    if (!res) {
-      res = await checkStock("KTOS", 70, 65, "Cycle Trading");
-    }
-
-    res = await checkStock("FLY", 33, 27, "MichaStocks", true);
     res && arrStocks.push(res);
 
     res = await checkStock("ONDS", 11, 8, "darkPool");
@@ -60,29 +75,23 @@ export async function GET(req: Request) {
     res = await checkStock("CAVA", 91.66, 0, "Amir");
     res && arrStocks.push(res);
 
-    res = await checkStock("AMD", 226, 188, "Cycle Trading");
+    res = await checkStock("AMD", 248, 240, "Cycle Trading");
 
     res && arrStocks.push(res);
 
-    res = await checkStock("PLTR", 161, 126, "Cycle Trading");
-    res && arrStocks.push(res);
-
-    res = await checkStock("HOOD", 70, 0, "Cycle Trading");
-    res && arrStocks.push(res);
-
-    res = await checkStock("GS", 868, 0, "Cycle Trading");
+    res = await checkStock("GS", 894, 0, "Cycle Trading");
     res && arrStocks.push(res);
 
     res = await checkStock("VLO", 0, 208, "Cycle Trading");
     res && arrStocks.push(res);
   } else if (page == "2") {
-    let res = await checkStock("AMZN", 212, 202, "Cycle Trading");
+    let res = await checkStock("AMZN", 297, 202, "Cycle Trading");
     res && arrStocks.push(res);
 
-    res = await checkStock("NFLX", 100, 0, "Cycle Trading");
+    res = await checkStock("NFLX", 107, 101, "Cycle Trading");
     res && arrStocks.push(res);
 
-    res = await checkStock("PLTR", 161, 130, "Cycle Trading");
+    res = await checkStock("PLTR", 0, 128, "Cycle Trading");
     res && arrStocks.push(res);
 
     res = await checkStock("PNC", 216, 0, "Cycle Trading");
@@ -121,8 +130,8 @@ export async function GET(req: Request) {
     let res = await checkStock("SOFI", 18, 0, "darkPool");
     res && arrStocks.push(res);
 
-    res = await checkStock("IREN", 34, 0, "darkPool");
-    res && arrStocks.push(res);
+    // res = await checkStock("IREN", 34, 0, "darkPool");
+    // res && arrStocks.push(res);
 
     res = await checkStock("HIMS", 0, 18, "darkPool");
     res && arrStocks.push(res);
@@ -139,10 +148,7 @@ export async function GET(req: Request) {
     res = await checkStock("OSCR", 23, 0, "Amir");
     res && arrStocks.push(res);
 
-    res = await checkStock("AA", 71.9, 69, "Amir");
-    res && arrStocks.push(res);
-
-    res = await checkStock("AAOI", 115, 0, "Amir");
+    res = await checkStock("AA", 71.9, 0, "Amir");
     res && arrStocks.push(res);
 
     res = await checkStock("CRML", 8.5, 0, "Dark pool");
@@ -187,9 +193,6 @@ export async function GET(req: Request) {
     res = await checkStock("AMR", 254, 0, "Cycle Trading");
     res && arrStocks.push(res);
 
-    res = await checkStock("GOOGL", 0, 256, "Cycle Trading");
-    res && arrStocks.push(res);
-
     res = await checkStock("CRCL", 91, 0, "Cycle Trading");
     res && arrStocks.push(res);
 
@@ -205,7 +208,7 @@ export async function GET(req: Request) {
     res = await checkStock("SMH", 373, 0, "ALON KFIR");
     res && arrStocks.push(res);
 
-    res = await checkStock("NVDA", 0, 168, "ALON KFIR");
+    res = await checkStock("USO", 140, 0, "");
     res && arrStocks.push(res);
 
     loadMore = false;

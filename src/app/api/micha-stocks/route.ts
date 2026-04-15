@@ -4,22 +4,7 @@ import { StockResponse } from "@/app/types/stock";
 export async function GET(req: Request) {
   let arrStocks: StockResponse[] = [];
 
-  let res = await checkStock("OSS", 8, 0, "", false);
-  res && arrStocks.push(res);
-
-  res = await checkStock("AAOI", 134, 129.5, "", false);
-  res && arrStocks.push(res);
-
-  res = await checkStock("SEDG", 53, 0, "", false);
-  res && arrStocks.push(res);
-
-  res = await checkStock("USAR", 16, 0, "", false);
-  res && arrStocks.push(res);
-
-  res = await checkStock("MP", 54, 0, "", false);
-  res && arrStocks.push(res);
-
-  res = await checkStock("BE", 0, 120, "", false);
+  let res = await checkStock("NFLX", 100, 0, "", false);
   res && arrStocks.push(res);
 
   return new Response(JSON.stringify({ stocks: arrStocks }), {

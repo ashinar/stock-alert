@@ -4,23 +4,36 @@ import { StockResponse } from "@/app/types/stock";
 export async function GET(req: Request) {
   let arrStocks: StockResponse[] = [];
 
-  let res = await checkStock("OSS", 8, 0, "", false);
+  //14-4-26
+  let res = await checkStock("KTOS", 74.5, 0, "", false);
   res && arrStocks.push(res);
 
-  res = await checkStock("AAOI", 134, 129.5, "", false);
+  res = await checkStock("SEDG", 44, 0, "", false);
   res && arrStocks.push(res);
 
-  res = await checkStock("SEDG", 53, 0, "", false);
+  res = await checkStock("PLTR", 135.7, 126, "", false);
   res && arrStocks.push(res);
 
-  res = await checkStock("USAR", 16, 0, "", false);
+  res = await checkStock("ENLT", 0, 70, "", false);
   res && arrStocks.push(res);
 
-  res = await checkStock("MP", 54, 0, "", false);
+  res = await checkStock("MU", 471, 405, "", false);
   res && arrStocks.push(res);
 
-  res = await checkStock("BE", 0, 120, "", false);
-  res && arrStocks.push(res);
+  let stock = await getFinnhubStock("COHR");
+  if (
+    stock &&
+    (stock.price > 313.42 || (stock.price > 300.37 && stock.price < 303))
+  ) {
+    arrStocks.push({
+      symbol: stock.symbol,
+      price: stock.price,
+      change: stock.change,
+      description: "",
+      percentage: Number(stock.changePercent.toFixed(2)),
+      isStar: false,
+    });
+  }
 
   return new Response(JSON.stringify({ stocks: arrStocks }), {
     headers: { "Content-Type": "application/json" },

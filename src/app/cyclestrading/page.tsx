@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import styles from "./stockIdea.module.css";
-import Image from "next/image";
-import Link from "next/link";
+import styles from "../constants/stockIdea.module.css";
 
 type Stock = {
   symbol: string;
@@ -11,7 +9,7 @@ type Stock = {
   percentage: number;
 };
 
-export default function StockIdea() {
+export default function DarkPool() {
   const didLoad = useRef(false);
   const [stocks, setStocks] = useState<Stock[]>([]);
 
@@ -22,17 +20,16 @@ export default function StockIdea() {
 
     didLoad.current = true;
 
-    const loadStocks = async (page: number) => {
-      const res = await fetch("/api/scan-stocks?page=" + page);
+    const loadStocks = async () => {
+      console.log("Loading stocks...");
+
+      const res = await fetch("/api/cyclestrading");
       const data = await res.json();
 
-      if (data) {
-        setStocks((prev) => [...prev, ...data.stocks]);
-        data.loadMore && loadStocks(page + 1);
-      }
+      data && setStocks(data.stocks);
     };
 
-    loadStocks(1);
+    loadStocks();
   }, []);
 
   return (
@@ -44,17 +41,6 @@ export default function StockIdea() {
         fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       }}
     >
-      <ul>
-        <li>
-          <Link href={"/cyclestrading"}>Cycles Trading</Link>
-        </li>
-        <li>
-          <Link href={"/dark-pool"}>Dark Pool</Link>
-        </li>
-        <li>
-          <Link href={"/micha-stocks"}>Micha.Stocks</Link>
-        </li>
-      </ul>
       <h1
         style={{
           textAlign: "center",
