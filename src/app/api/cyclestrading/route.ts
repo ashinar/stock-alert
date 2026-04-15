@@ -25,19 +25,23 @@ export async function GET(req: Request) {
     stock &&
     (stock.price > 313.42 || (stock.price > 300.37 && stock.price < 303))
   ) {
-    arrStocks.push({
-      symbol: stock.symbol,
-      price: stock.price,
-      change: stock.change,
-      description: "",
-      percentage: Number(stock.changePercent.toFixed(2)),
-      isStar: false,
-    });
+    arrStocks.push(getStockResponse(stock, "", false));
   }
 
   return new Response(JSON.stringify({ stocks: arrStocks }), {
     headers: { "Content-Type": "application/json" },
   });
+}
+
+function getStockResponse(stock: any, description: string, isStar: boolean) {
+  return {
+    symbol: stock.symbol,
+    price: stock.price,
+    change: stock.change,
+    description: "",
+    percentage: Number(stock.changePercent.toFixed(2)),
+    isStar: false,
+  };
 }
 
 async function checkStock(
@@ -60,14 +64,7 @@ async function checkStock(
     }
 
     if (isAlert) {
-      return {
-        symbol: stock.symbol,
-        price: stock.price,
-        change: stock.change,
-        description: description,
-        percentage: Number(stock.changePercent.toFixed(2)),
-        isStar,
-      };
+      return getStockResponse(stock, description, isStar);
     }
   }
   return null;
